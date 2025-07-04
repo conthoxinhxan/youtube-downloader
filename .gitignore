@@ -8,3 +8,15 @@ downloads/
 .DS_Store
 Thumbs.db
 *.log
+
+# Railway
+.railway/
+
+# Additional temp files
+tmp/
+temp/
+
+# Editor files
+.vscode/*
+!.vscode/extensions.json
+.idea

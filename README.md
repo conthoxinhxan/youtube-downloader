@@ -1,111 +1,114 @@
-# YouTube Downloader
+# YouTube Downloader Web Application
 
-Ứng dụng web để tải video từ YouTube sử dụng Node.js và Express.
+A simple web application for downloading YouTube videos using yt-dlp.
 
-## Tính năng
-- Tải video từ YouTube
-- Giao diện web đơn giản
-- Hỗ trợ tải nhiều video cùng lúc
-- Tự động xóa file sau khi tải xong
+## Features
 
-## Cài đặt
+- Download YouTube videos in MP4 format
+- Multiple video download support
+- Clean and simple web interface
+- Automatic file cleanup after download
 
-1. Clone repository:
-```bash
-git clone <repository-url>
-cd youtube-download
+## Local Development
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- Python 3.x
+- yt-dlp
+- ffmpeg
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Install yt-dlp:
+   ```bash
+   pip install yt-dlp
+   ```
+4. Start the server:
+   ```bash
+   npm start
+   ```
+
+The application will be available at `http://localhost:3000`
+
+## Railway Deployment
+
+### Step 1: Prepare Your Project
+
+1. Make sure all files are committed to Git:
+   ```bash
+   git add .
+   git commit -m "Prepare for Railway deployment"
+   ```
+
+### Step 2: Deploy to Railway
+
+1. **Create a Railway Account**
+   - Go to [Railway](https://railway.app)
+   - Sign up using GitHub, Google, or email
+
+2. **Deploy Your Project**
+   - Click "New Project"
+   - Select "Deploy from GitHub repo"
+   - Choose your repository
+   - Railway will automatically detect it's a Node.js project
+
+3. **Configure Environment** (if needed)
+   - Railway will use the `nixpacks.toml` configuration
+   - The deployment includes Python, ffmpeg, and yt-dlp
+
+4. **Deploy**
+   - Railway will automatically build and deploy your application
+   - You'll get a public URL like `https://yourapp.railway.app`
+
+### Step 3: Monitor Deployment
+
+- Check the deployment logs in Railway dashboard
+- Test the application using the provided URL
+- The health check endpoint is available at `/health`
+
+## Project Structure
+
+```
+youtube-downloader/
+├── server.js           # Express server
+├── package.json        # Node.js dependencies
+├── nixpacks.toml       # Railway build configuration
+├── railway.json        # Railway deployment settings
+├── public/
+│   └── index.html      # Frontend interface
+├── downloads/          # Temporary download directory
+└── README.md          # This file
 ```
 
-2. Cài đặt dependencies:
-```bash
-npm install
-```
+## API Endpoints
 
-3. Chạy ứng dụng:
-```bash
-npm start
-```
+- `GET /` - Web interface
+- `POST /download` - Download video endpoint
+- `GET /health` - Health check endpoint
 
-4. Truy cập http://localhost:3000
+## Environment Variables
 
-# YouTube Downloader
+- `PORT` - Server port (default: 3000)
 
-Ứng dụng web để tải video từ YouTube sử dụng Node.js và Express.
+## Notes
 
-## Tính năng
-- Tải video từ YouTube
-- Giao diện web đơn giản
-- Hỗ trợ tải nhiều video cùng lúc
-- Tự động xóa file sau khi tải xong
+- Downloaded videos are automatically cleaned up after sending
+- The application uses a temporary downloads directory
+- Railway provides automatic HTTPS
+- System dependencies (Python, ffmpeg, yt-dlp) are installed via nixpacks.toml
 
-## Cài đặt
+## Troubleshooting
 
-1. Clone repository:
-```bash
-git clone <repository-url>
-cd youtube-download
-```
+1. **Build fails**: Check the Railway logs for missing dependencies
+2. **Download fails**: Verify the YouTube URL is valid and accessible
+3. **Memory issues**: Railway's free tier has resource limits
 
-2. Cài đặt dependencies:
-```bash
-npm install
-```
+## License
 
-3. Chạy ứng dụng:
-```bash
-npm start
-```
-
-4. Truy cập http://localhost:3000
-
-## Deployment lên Web
-
-### Option 1: Heroku (Miễn phí với giới hạn)
-1. Tạo tài khoản tại https://heroku.com
-2. Cài đặt Heroku CLI
-3. Chạy lệnh:
-```bash
-heroku login
-heroku create your-app-name
-git add .
-git commit -m "Deploy to Heroku"
-git push heroku main
-```
-
-### Option 2: Railway (Khuyến nghị)
-1. Tạo tài khoản tại https://railway.app
-2. Kết nối GitHub repository
-3. Deploy tự động từ GitHub
-4. Có thể sử dụng domain tùy chỉnh
-
-### Option 3: Render (Miễn phí với giới hạn)
-1. Tạo tài khoản tại https://render.com
-2. Tạo Web Service từ GitHub
-3. Build Command: `npm install`
-4. Start Command: `npm start`
-
-### Option 4: Vercel (Chỉ hỗ trợ serverless)
-```bash
-npm i -g vercel
-vercel
-```
-
-### Option 5: VPS (Tốt nhất cho app này)
-1. Thuê VPS (DigitalOcean, AWS, etc.)
-2. Cài đặt Node.js và PM2
-3. Clone code và chạy:
-```bash
-npm install
-pm2 start server.js --name youtube-downloader
-```
-
-## Yêu cầu hệ thống
-- Node.js >= 14.0.0
-- yt-dlp (tự động cài đặt)
-
-## Lưu ý quan trọng
-- Một số hosting có thể chặn việc download video
-- VPS sẽ hoạt động tốt nhất cho app này
-- Cần kiểm tra policy của hosting trước khi deploy
-- Chỉ sử dụng để tải video mà bạn có quyền
-- Tuân thủ các điều khoản sử dụng của YouTube
+This project is open source and available under the MIT License.

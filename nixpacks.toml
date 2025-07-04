@@ -1,0 +1,16 @@
+# Nixpacks configuration for Railway
+[variables]
+PYTHON_VERSION = "3.11"
+NODE_VERSION = "18"
+
+[phases.setup]
+nixPkgs = ["python311", "ffmpeg", "python311Packages.pip"]
+
+[phases.install]
+cmds = ["npm install", "pip install yt-dlp"]
+
+[phases.build]
+cmds = ["echo 'Build phase completed'"]
+
+[start]
+cmd = "npm start"
