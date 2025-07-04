@@ -1,0 +1,21 @@
+[variables]
+NODE_VERSION = "18"
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "python311", "python311Packages.virtualenv", "ffmpeg"]
+
+[phases.install]
+cmds = [
+    "npm install",
+    "python3 -m venv /tmp/venv",
+    ". /tmp/venv/bin/activate && pip install yt-dlp"
+]
+
+[phases.build]
+cmds = [
+    "echo 'export PATH=\"/tmp/venv/bin:$PATH\"' >> /tmp/setup_env.sh",
+    "echo 'source /tmp/venv/bin/activate' >> /tmp/setup_env.sh"
+]
+
+[start]
+cmd = "source /tmp/setup_env.sh && npm start"
