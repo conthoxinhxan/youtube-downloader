@@ -32,7 +32,16 @@
           });
 
           if (!res.ok) {
-            statusDiv.innerHTML += `<br>❌ Failed: ${url}`;
+            let errorMsg = `Failed: ${url}`;
+            try {
+              const errorData = await res.json();
+              errorMsg = `Failed: ${url} - ${errorData.message || errorData.error}`;
+            } catch (e) {
+              // Fallback to text if JSON parsing fails
+              const errorText = await res.text();
+              errorMsg = `Failed: ${url} - ${errorText}`;
+            }
+            statusDiv.innerHTML += `<br>❌ ${errorMsg}`;
             continue;
           }
 
@@ -45,7 +54,7 @@
 
           statusDiv.innerHTML += `<br>✅ Done: ${url}`;
         } catch (err) {
-          statusDiv.innerHTML += `<br>❌ Error: ${url}`;
+          statusDiv.innerHTML += `<br>❌ Network Error: ${url} - ${err.message}`;
         }
       }
 
