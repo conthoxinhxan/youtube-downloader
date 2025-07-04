@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Downloader</title>
+</head>
+<body>
+  <h2>Multi YouTube Video Downloader</h2>
+  <form id="downloadForm">
+    <label>Paste one link per line:</label><br>
+    <textarea id="urls" rows="10" cols="60" placeholder="https://www.youtube.com/watch?v=..."></textarea><br><br>
+    <button type="submit">Download All</button>
+  </form>
+  <div id="status"></div>
+
+  <script>
+    const form = document.getElementById('downloadForm');
+    const statusDiv = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusDiv.innerHTML = '⏳ Processing...';
+
+      const urls = document.getElementById('urls').value.trim().split('\n').filter(Boolean);
+      for (const url of urls) {
+        statusDiv.innerHTML += `<br>⬇️ Downloading: ${url}`;
+        try {
+          const res = await fetch('/download', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+          });
+
+          if (!res.ok) {
+            statusDiv.innerHTML += `<br>❌ Failed: ${url}`;
+            continue;
+          }
+
+          // Trigger file download
+          const blob = await res.blob();
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'video.mp4';
+          a.click();
+
+          statusDiv.innerHTML += `<br>✅ Done: ${url}`;
+        } catch (err) {
+          statusDiv.innerHTML += `<br>❌ Error: ${url}`;
+        }
+      }
+
+      statusDiv.innerHTML += `<br>🎉 All done!`;
+    });
+  </script>
+</body>
+</html>

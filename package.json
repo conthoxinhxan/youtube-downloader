@@ -1,0 +1,22 @@
+{
+  "name": "youtube-download",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["youtube", "downloader", "video"],
+  "author": "",
+  "license": "ISC",
+  "description": "YouTube Video Downloader Web Application",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "yt-dlp-exec": "^1.0.2"
+  }
+}
