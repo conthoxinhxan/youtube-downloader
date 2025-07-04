@@ -5,7 +5,12 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:heroku": "git push heroku main",
+    "deploy:vercel": "vercel",
+    "docker:build": "docker build -t youtube-downloader .",
+    "docker:run": "docker run -p 3000:3000 youtube-downloader",
+    "docker:compose": "docker-compose up -d"
   },
   "keywords": ["youtube", "downloader", "video"],
   "author": "",
